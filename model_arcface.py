@@ -3,6 +3,7 @@ from keras.layers import Dense
 from keras.callbacks import ModelCheckpoint
 from keras.models import Model
 from metrics import ArcFace
+import h5py
 h5f1 = h5py.File("C:\\Users\\ganeshsamarth\\Desktop\\facebank2\\training_data.h5", 'r')
 train_X = h5f1['X']
 train_Y = h5f1['Y']
