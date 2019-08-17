@@ -26,5 +26,5 @@ model.fit([train_X, train_Y],
           batch_size=batch_size,
           epochs=epochs,
           verbose=1,
-          callbacks=[ModelCheckpoint('model.hdf5',
-                     verbose=1, save_best_only=True)])
+          callbacks=[ModelCheckpoint('model.{epoch:02d}.hdf5',
+                     verbose=1, save_best_only=False)])
