@@ -3,6 +3,9 @@ from keras.layers import Dense
 from keras.callbacks import ModelCheckpoint
 from keras.models import Model
 from metrics import ArcFace
+h5f1 = h5py.File("C:\\Users\\ganeshsamarth\\Desktop\\facebank2\\training_data.h5", 'r')
+train_X = h5f1['X']
+train_Y = h5f1['Y']
 input=Input(shape=(64,64,3))
 label=Input(shape=(100,))
 batch_size=8
@@ -17,11 +20,10 @@ model.compile(loss='categorical_crossentropy',
               optimizer=Adam(),
               metrics=['accuracy'])
 
-model.fit([x_train, y_train],
+model.fit([train_X, train_Y],
           y_train,
           batch_size=batch_size,
           epochs=epochs,
           verbose=1,
-          validation_data=([x_test, y_test], y_test),
           callbacks=[ModelCheckpoint('model.hdf5',
                      verbose=1, save_best_only=True)])
