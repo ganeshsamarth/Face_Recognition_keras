@@ -33,7 +33,7 @@ for line in dataset:
 
 
 
-h5f = h5py.File(input_dir+'/'+'training_data.h5', 'w')
-h5f.create_dataset("X", data=X)
-h5f.create_dataset("Y", data=Y)
-h5f.close()
+# h5f = h5py.File(input_dir+'/'+'training_data.h5', 'w')
+# h5f.create_dataset("X", data=X)
+# h5f.create_dataset("Y", data=Y)
+# h5f.close()

@@ -18,6 +18,7 @@ Implementation Adapted from: github.com/raghakot/keras-resnet
 from __future__ import division
 
 import six
+import keras
 from keras.models import Model
 from keras.layers import Input
 from keras.layers import Activation
@@ -33,7 +34,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.regularizers import l2
 from keras import backend as K
 from keras_applications.imagenet_utils import _obtain_input_shape
-
+from metrics import ArcFace
 
 def _bn_relu(x, bn_name=None, relu_name=None):
     """Helper to build a BN -> relu block
@@ -385,6 +386,7 @@ def ResNet(input_shape=None, classes=10, block='bottleneck', residual_unit='v2',
                                       require_flatten=include_top)
 
     img_input = Input(shape=input_shape, tensor=input_tensor)
+    label= keras.layers.Input(shape=(100,))
     x = _conv_bn_relu(filters=initial_filters, kernel_size=initial_kernel_size,
                       strides=initial_strides)(img_input)
     if initial_pooling == 'max':
@@ -432,7 +434,12 @@ def ResNet(input_shape=None, classes=10, block='bottleneck', residual_unit='v2',
 
     # model = Model(inputs=img_input, outputs=x)
     # return model
-    return x
+    x = Dense(512, kernel_initializer='he_normal')(x)
+    x = BatchNormalization()(x)
+    output=ArcFace(n_classes=100)([x,label])
+    model = Model(inputs=[img_input, label], outputs=output)
+
+    return model
 
 def ResNet18(input_shape, classes):
     """ResNet with 18 layers and v2 residual units
