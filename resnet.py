@@ -430,9 +430,9 @@ def ResNet(input_shape=None, classes=10, block='bottleneck', residual_unit='v2',
     elif final_pooling == 'max':
         x = GlobalMaxPooling2D()(x)
 
-    model = Model(inputs=img_input, outputs=x)
-    return model
-
+    # model = Model(inputs=img_input, outputs=x)
+    # return model
+    return x
 
 def ResNet18(input_shape, classes):
     """ResNet with 18 layers and v2 residual units

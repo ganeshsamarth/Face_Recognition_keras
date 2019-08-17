@@ -1,0 +1,1 @@
+wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1r3GmQoWEosg3ToDXrlwyEHdPwgpIeWTr' -O training_data.h5
